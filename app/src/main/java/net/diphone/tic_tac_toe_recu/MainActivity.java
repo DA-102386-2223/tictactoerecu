@@ -8,6 +8,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
 
     Button b1, b2, b3, b4, b5, b6, b7, b8, b9 ;
@@ -161,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
     public void endGame () {
         String a,b,c,d,e,f,g,h,i;
         boolean end = false;
+        boolean winnerX = false;
 
         a = b1.getText().toString();
         b = b2.getText().toString();
@@ -175,74 +184,91 @@ public class MainActivity extends AppCompatActivity {
         i = b9.getText().toString();
 
         if(a.equals("X") && b.equals("X") && c.equals("X")) {
-            Toast.makeText(MainActivity.this, "Winner Player X!", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, getResources().getString(R.string.winnerX), Toast.LENGTH_LONG).show();
             end = true;
-
+            winnerX = true;
         }
         if(a.equals("X") && e.equals("X") && i.equals("X")) {
-            Toast.makeText(MainActivity.this, "Winner Player X!", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, getResources().getString(R.string.winnerX), Toast.LENGTH_LONG).show();
             end = true;
+            winnerX = true;
         }
         if(a.equals("X") && d.equals("X") && g.equals("X")) {
-            Toast.makeText(MainActivity.this, "Winner Player X!", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, getResources().getString(R.string.winnerX), Toast.LENGTH_LONG).show();
             end = true;
+            winnerX = true;
         }
         if(b.equals("X") && e.equals("X") && h.equals("X")) {
-            Toast.makeText(MainActivity.this, "Winner Player X!", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, getResources().getString(R.string.winnerX), Toast.LENGTH_LONG).show();
             end = true;
+            winnerX = true;
         }
         if(c.equals("X") && f.equals("X") && i.equals("X")) {
-            Toast.makeText(MainActivity.this, "Winner Player X!", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, getResources().getString(R.string.winnerX), Toast.LENGTH_LONG).show();
             end = true;
+            winnerX = true;
         }
         if(d.equals("X") && e.equals("X") && f.equals("X")) {
-            Toast.makeText(MainActivity.this, "Winner Player X!", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, getResources().getString(R.string.winnerX), Toast.LENGTH_LONG).show();
             end = true;
+            winnerX = true;
         }
         if(g.equals("X") && h.equals("X") && i.equals("X")) {
-            Toast.makeText(MainActivity.this, "Winner Player X!", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, getResources().getString(R.string.winnerX), Toast.LENGTH_LONG).show();
             end = true;
+            winnerX = true;
         }
         if(g.equals("X") && e.equals("X") && c.equals("X")) {
-            Toast.makeText(MainActivity.this, "Winner Player X!", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, getResources().getString(R.string.winnerX), Toast.LENGTH_LONG).show();
             end = true;
+            winnerX = true;
         }
 
 
         if(a.equals("O") && b.equals("O") && c.equals("O")) {
-            Toast.makeText(MainActivity.this, "Winner Player O!", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, getResources().getString(R.string.winner0), Toast.LENGTH_LONG).show();
             end = true;
         }
         if(a.equals("O") && e.equals("O") && i.equals("O")) {
-            Toast.makeText(MainActivity.this, "Winner Player O!", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, getResources().getString(R.string.winner0), Toast.LENGTH_LONG).show();
             end = true;
         }
         if(a.equals("O") && d.equals("O") && g.equals("O")) {
-            Toast.makeText(MainActivity.this, "Winner Player O!", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, getResources().getString(R.string.winner0), Toast.LENGTH_LONG).show();
             end = true;
         }
         if(b.equals("O") && e.equals("O") && h.equals("O")) {
-            Toast.makeText(MainActivity.this, "Winner Player O!", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, getResources().getString(R.string.winner0), Toast.LENGTH_LONG).show();
             end = true;
         }
         if(c.equals("O") && f.equals("O") && i.equals("O")) {
-            Toast.makeText(MainActivity.this, "Winner Player O!", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, getResources().getString(R.string.winner0), Toast.LENGTH_LONG).show();
             end = true;
         }
         if(d.equals("O") && e.equals("O") && f.equals("O")) {
-            Toast.makeText(MainActivity.this, "Winner Player O!", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, getResources().getString(R.string.winner0), Toast.LENGTH_LONG).show();
             end = true;
         }
         if(g.equals("O") && h.equals("O") && i.equals("O")) {
-            Toast.makeText(MainActivity.this, "Winner Player O!", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, getResources().getString(R.string.winner0), Toast.LENGTH_LONG).show();
             end = true;
         }
         if(g.equals("O") && e.equals("O") && c.equals("O")) {
-            Toast.makeText(MainActivity.this, "Winner Player X!", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, getResources().getString(R.string.winner0), Toast.LENGTH_LONG).show();
             end = true;
         }
 
         if(end) {
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+            String currentDateandTime = sdf.format(new Date());
+
+            FirebaseDatabase database = FirebaseDatabase.getInstance("https://examen-db47f-default-rtdb.europe-west1.firebasedatabase.app/");
+            DatabaseReference myRef = database.getReference("partidas");
+
+            Map<String, String> map = new HashMap<>();
+            map.put(currentDateandTime, winnerX ? "X" : "O");
+            myRef.push().setValue(map);
+
             b1.setEnabled(false);
             b2.setEnabled(false);
             b3.setEnabled(false);
@@ -253,6 +279,7 @@ public class MainActivity extends AppCompatActivity {
             b8.setEnabled(false);
             b9.setEnabled(false);
             playAgainButton.setVisibility(View.VISIBLE);
+            finish();
         }
 
         if (draw == 9 && !end ) {

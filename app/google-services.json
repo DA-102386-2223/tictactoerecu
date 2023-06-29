@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "411616293551",
+    "project_id": "examen-db47f",
+    "storage_bucket": "examen-db47f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:411616293551:android:3ad280698b14891d26da5a",
+        "android_client_info": {
+          "package_name": "net.diphone.tic_tac_toe_recu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "411616293551-rnncekqv2sps58nt47jlqas8otln6gpa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAo5GxXEZRA8vtd9VqI4-hCog6F1X8fxQo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "411616293551-rnncekqv2sps58nt47jlqas8otln6gpa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
