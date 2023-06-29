@@ -253,6 +253,7 @@ public class MainActivity extends AppCompatActivity {
             b8.setEnabled(false);
             b9.setEnabled(false);
             playAgainButton.setVisibility(View.VISIBLE);
+            finish();
         }
 
         if (draw == 9 && !end ) {
